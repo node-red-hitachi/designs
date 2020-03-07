@@ -8,11 +8,6 @@ state: draft
 
 In some cases, users want to change default values in `settings.js` file without modifying the file contents.  This design note proposed new command line option for changing values in `settings.js`.
 
-The basic concept of this feature is to introduce a new Function Library
-configuration node (from here on referred to as `func-lib` to save typing...
-not necessarily the final name). This would be a node that can hold common code
-accessible to regular Function nodes.
-
 ## Authors
 
  - @HiroyasuNishiyama
@@ -27,17 +22,19 @@ Add startup option to overwrite values in `settings.js`.
 
 First option type overwrites specified property in the `settings.js` by the specified JSON value.
 
-Second option type overwrites properties in the `settings.js` by contents of the specified JSON file. Other properties are untouched.
+Second option type overwrites properties in the `settings.js` by contents of the specified JSON file.   Objects in the `settings.js` and the JSON file are merged. So, other properties are untouched.  
 
 The `settings.js` file is not modified with these options.
 
 `--define` can be used instead of `-D`.
 
+If there is an error in processing option, Node-RED stops execution.
+
 ### Examples
 
 ```
 // enable project feature
--D editor.theme.projects.enables=true
+-D editor.theme.projects.enabled=true
 
 // set console log level to "debug"
 -D logging.console.level="debug"
@@ -59,3 +56,4 @@ Values that can be specified are limited to JSON value.  Thus, settings that req
 ## History
 
   - 2020-02-10 - Initial Design Note
+  - 2020-03-07 - Update
